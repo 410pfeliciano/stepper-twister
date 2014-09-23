@@ -14,9 +14,9 @@ Attribution
 This work is basically a direct combination of two existing open-source projects:
 
 1. "Tetrode Twister" by Josh Siegle, which is licensed under [GPLv3](http://www.gnu.org/licenses/gpl-3.0.txt)
---* [Josh on Github](https://github.com/jsiegle)
---* [Twister Project](https://github.com/open-ephys/twister)
+    * [Josh on Github](https://github.com/jsiegle)
+    * [Twister Project](https://github.com/open-ephys/twister)
 
 2. "Easy Driver" by Brian Schmalz, which is  is licensed under [CC-BY-3.0](https://creativecommons.org/licenses/by/3.0/us/)
---* [Brian's site](http://www.schmalzhaus.com/)
---* [Easy Driver Project](http://www.schmalzhaus.com/EasyDriver/)
+    * [Brian's site](http://www.schmalzhaus.com/)
+    * [Easy Driver Project](http://www.schmalzhaus.com/EasyDriver/)
