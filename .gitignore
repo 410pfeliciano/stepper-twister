@@ -1,6 +1,6 @@
 .DS_Store
 *.b#*
 *.s#*
-
+*.l#*
 *.exe
 *.zip
