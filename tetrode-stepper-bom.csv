@@ -1,23 +1,31 @@
-Sparkfun Part No.,Quantity,Description
-prt-00116,2,"Header, 40 pin"
-com-09939,2,"Rotary Pot, 10K"
-com-10002,2,Knob
-LCD-0070,1,LCD Module
-DEV-11286,1,Leonardo
-TOL-00298,1,Wall wart
-COM-07950,1,Buzzer
-COM-09190,1,Momentary switch
-COM-08605,1,Tall momentary switch
-com-09806,1,"Trimpot, 10K"
-ROB-1055,1,Small stepper motor
-,,
-,,
-Digikey,,
-620-1140-1-ND,1,Microstepping driver
-565-2558-1-ND,1,CAP 47UF 35V ELECT MZA SMD
-445-1291-1-ND,2,"Ceramic Cap, 0603, 680pF"
-445-1419-1-ND ,2,"Ceramic Cap, 0805, 1uF"
-P10.0KHCT-ND,8,"Resistor, 0603, 10K"
-P11.0KHCT-ND,1,"Resistor, 0603, 11K"
-P20.0KHCT-ND,2,"Resistor, 0603, 20K"
-A109863CT-ND,2,"Resistor, 1206, 0.75 Ohm"
+Sparkfun Part No.,Quantity,Description,Notes
+prt-00116,2,"Header, 40 pin",
+com-09939,2,"Rotary Pot, 10K",
+com-10002,2,Knob,
+LCD-0070,1,LCD Module,
+DEV-11286,1,Leonardo,
+TOL-00298,1,Wall wart,
+COM-07950,1,Buzzer,
+COM-09190,1,Momentary switch,
+COM-08605,1,Tall momentary switch,
+com-09806,1,"Trimpot, 10K",
+ROB-1055,1,Small stepper motor,
+,,,
+,,,
+Digikey,Quantity,Description,Notes
+620-1140-1-ND,1,Microstepping driver,
+565-2558-1-ND,1,CAP 47UF 35V ELECT MZA SMD,
+445-1291-1-ND,2,"Ceramic Cap, 0603, 680pF",
+445-1419-1-ND ,2,"Ceramic Cap, 0805, 1uF",
+P10.0KHCT-ND,8,"Resistor, 0603, 10K",
+P11.0KHCT-ND,1,"Resistor, 0603, 11K",
+P20.0KHCT-ND,2,"Resistor, 0603, 20K",
+A109863CT-ND,2,"Resistor, 1206, 0.75 Ohm",
+,,,
+McMaster-Carr,Quantity,Description,Notes
+94500A222,1,M3 bolt,100/pack
+90592A009,1,M3 Nut,100/pack
+94150a340,1,M5 nut,25/pack
+91292a193,1,M5 bolt,50/pacl
+92871a063,4,"M5 Unthreaded spacer, 20mm",
+92871a040,4,"M5 Unthreaded spacer, 5mm",
