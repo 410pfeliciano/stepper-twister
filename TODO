@@ -1,0 +1,13 @@
+1. For some reason, the hole for the stepper motor's cental shaft was not cut the whole way, but had tabs connecting the the inner piece. Maybe replace this dimension line with a hole or vice versa.
+
+2. Silkscreening in upper right hand corner of the LCD screen is hard to see because of the LCD outline. Just get rid of the outline there.
+
+3. Put a B-Restric layer over surface of stepper. I don't want traces or esspecially vias under this metal piece.
+
+4. Increase size of annular ring on the LCD header to match those of arduino headers. Same with motor header.
+
+5. There is a groud to +5V fault on the first round of PCBs. It is on the ground pad of the 47 uF cap. Contact OSH park to see what went wrong there.
+
+6. The 47 uF cap is too tall. Get one that sits under or at the level of the LCD pcb.
+
+7. The A input to the LCD requires 4.2 volts instead of 5. Drop a diode or two in series with the input to +5 volts to bring the voltage level down.
