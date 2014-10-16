@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.5.0">
+<eagle version="6.4">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -1353,6 +1353,23 @@ Source: http://www.atmel.com/dyn/resources/prod_documents/doc4126.pdf</descripti
 <rectangle x1="-1.016" y1="-0.635" x2="-0.6096" y2="0.635" layer="51"/>
 <rectangle x1="0.6096" y1="-0.635" x2="1.016" y2="0.635" layer="51"/>
 </package>
+<package name="SMB">
+<description>&lt;B&gt;DIODE&lt;/B&gt;</description>
+<wire x1="-2.2606" y1="1.905" x2="2.2606" y2="1.905" width="0.1016" layer="21"/>
+<wire x1="-2.2606" y1="-1.905" x2="2.2606" y2="-1.905" width="0.1016" layer="21"/>
+<wire x1="-2.2606" y1="-1.905" x2="-2.2606" y2="1.905" width="0.1016" layer="51"/>
+<wire x1="2.2606" y1="-1.905" x2="2.2606" y2="1.905" width="0.1016" layer="51"/>
+<wire x1="0.193" y1="1" x2="-0.83" y2="0" width="0.2032" layer="21"/>
+<wire x1="-0.83" y1="0" x2="0.193" y2="-1" width="0.2032" layer="21"/>
+<wire x1="0.193" y1="-1" x2="0.193" y2="1" width="0.2032" layer="21"/>
+<smd name="C" x="-2.2" y="0" dx="2.4" dy="2.4" layer="1"/>
+<smd name="A" x="2.2" y="0" dx="2.4" dy="2.4" layer="1"/>
+<text x="-2.159" y="2.159" size="1.27" layer="25" font="vector" ratio="18">&gt;NAME</text>
+<text x="-2.159" y="-3.429" size="1.27" layer="27" font="vector" ratio="18">&gt;VALUE</text>
+<rectangle x1="-2.794" y1="-1.0922" x2="-2.2606" y2="1.0922" layer="51"/>
+<rectangle x1="2.2606" y1="-1.0922" x2="2.794" y2="1.0922" layer="51"/>
+<rectangle x1="-1.35" y1="-1.9" x2="-0.8" y2="1.9" layer="51"/>
+</package>
 </packages>
 <symbols>
 <symbol name="LARGE_POT">
@@ -1590,6 +1607,17 @@ Source: http://www.atmel.com/dyn/resources/prod_documents/doc4126.pdf</descripti
 <wire x1="-0.889" y1="-1.27" x2="0.889" y2="-1.27" width="0.254" layer="94"/>
 <pin name="VIN" x="0" y="-2.54" visible="off" length="short" direction="sup" rot="R90"/>
 <text x="-2.54" y="-2.54" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
+</symbol>
+<symbol name="D">
+<wire x1="-1.27" y1="-1.27" x2="1.27" y2="0" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="-1.27" y2="1.27" width="0.254" layer="94"/>
+<wire x1="1.27" y1="1.27" x2="1.27" y2="0" width="0.254" layer="94"/>
+<wire x1="-1.27" y1="1.27" x2="-1.27" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="1.27" y2="-1.27" width="0.254" layer="94"/>
+<text x="2.54" y="0.4826" size="1.778" layer="95">&gt;NAME</text>
+<text x="2.54" y="-2.3114" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="A" x="-2.54" y="0" visible="off" length="short" direction="pas"/>
+<pin name="C" x="2.54" y="0" visible="off" length="short" direction="pas" rot="R180"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -2200,6 +2228,24 @@ Spark Fun Electronics SKU : Comp-Buzzer</description>
 </device>
 </devices>
 </deviceset>
+<deviceset name="DIODE" prefix="D">
+<description>&lt;B&gt;DIODE&lt;/B&gt;&lt;p&gt;
+fast soft-recovery controlled avalanche rectifier</description>
+<gates>
+<gate name="1" symbol="D" x="0" y="0"/>
+</gates>
+<devices>
+<device name="_SMB" package="SMB">
+<connects>
+<connect gate="1" pin="A" pad="A"/>
+<connect gate="1" pin="C" pad="C"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
 </devicesets>
 </library>
 <library name="frames">
@@ -2335,6 +2381,7 @@ DIN A3, landscape with extra doc field</description>
 <part name="GND12" library="sparkfun" deviceset="GND" device=""/>
 <part name="P+18" library="twister_clean" deviceset="+5V" device="" value="+5V"/>
 <part name="FRAME2" library="frames" deviceset="DINA3_L" device=""/>
+<part name="D1" library="twister_clean" deviceset="DIODE" device="_SMB"/>
 </parts>
 <sheets>
 <sheet>
@@ -2487,6 +2534,7 @@ DIN A3, landscape with extra doc field</description>
 </instance>
 <instance part="FRAME2" gate="G$1" x="-53.34" y="-81.28"/>
 <instance part="FRAME2" gate="G$2" x="233.68" y="-81.28"/>
+<instance part="D1" gate="1" x="78.74" y="99.06"/>
 </instances>
 <busses>
 </busses>
@@ -2646,10 +2694,10 @@ DIN A3, landscape with extra doc field</description>
 <pinref part="P+14" gate="1" pin="+5V"/>
 </segment>
 <segment>
-<pinref part="LCD_MODULE" gate="G$1" pin="A"/>
 <pinref part="P+16" gate="1" pin="+5V"/>
-<wire x1="104.14" y1="99.06" x2="71.12" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="71.12" y1="99.06" x2="71.12" y2="106.68" width="0.1524" layer="91"/>
+<pinref part="D1" gate="1" pin="A"/>
+<wire x1="71.12" y1="99.06" x2="76.2" y2="99.06" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <wire x1="274.32" y1="127" x2="274.32" y2="129.54" width="0.1524" layer="91"/>
@@ -3034,6 +3082,13 @@ DIN A3, landscape with extra doc field</description>
 <label x="203.2" y="99.06" size="1.778" layer="95"/>
 <pinref part="IC1" gate="G$1" pin="/SLEEP"/>
 <pinref part="R7" gate="R" pin="1"/>
+</segment>
+</net>
+<net name="A" class="0">
+<segment>
+<pinref part="D1" gate="1" pin="C"/>
+<pinref part="LCD_MODULE" gate="G$1" pin="A"/>
+<wire x1="81.28" y1="99.06" x2="104.14" y2="99.06" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

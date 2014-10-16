@@ -21,6 +21,7 @@ P10.0KHCT-ND,8,"Resistor, 0603, 10K",
 P11.0KHCT-ND,1,"Resistor, 0603, 11K",
 P20.0KHCT-ND,2,"Resistor, 0603, 20K",
 A109863CT-ND,2,"Resistor, 1206, 0.75 Ohm",
+MURS120T3GOSCT-ND,1,"DIODE ULTRA FAST 200V 2A SMB"
 ,,,
 McMaster-Carr,Quantity,Description,Notes
 94500A222,1,M3 bolt,100/pack
@@ -29,3 +30,5 @@ McMaster-Carr,Quantity,Description,Notes
 91292a193,1,M5 bolt,50/pacl
 92871a063,4,"M5 Unthreaded spacer, 20mm",
 92871a040,4,"M5 Unthreaded spacer, 5mm",
+
+
