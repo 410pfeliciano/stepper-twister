@@ -18,8 +18,21 @@
 #ifndef TwisterClasses_h
 #define TwisterClasses_h
 
-#include "Arduino.h" // for IDE 1.0 and higher
-// #include "WProgram.h" // if using IDE 0.X
+#if ARDUINO >= 100
+ #include <Arduino.h>
+#else
+ #include <WProgram.h>
+#endif
+
+// Stepper pins
+#define SPR				48	 // steps per rotation for ST-PM35
+#define DIR				37
+#define STEP			38
+#define PFD				39
+#define MS1				10
+#define MS2				9
+#define STEPEN			8
+
 
 class Buzzer
 {
@@ -37,7 +50,7 @@ class Inputs
     int buttonState, fwdTurns, revTurns;
     boolean isUpdated;
     Inputs(int pin1, int pin2, int pin3);
-    void check(boolean isTurning, int versionNum);
+    void check(boolean isTurning);
   private:
     int _buttonPin, _knobPin1, _knobPin2;
 };
@@ -50,35 +63,59 @@ class StateTracker
     boolean isUpdated;
     boolean isTurning;
     boolean isTurningFWD;
+    boolean finished;
     
     StateTracker();
     void respondToButton();
 };
-    
-    
-class Photocells
+
+class StepperControl
 {
-  public:
-    int values[2];
-    int thresh[2];
-    unsigned int counter;
-    
-    Photocells(int pin1, int pin2);
-    
-    int update(boolean dir, long time);
-    
-  private:
-    int pins[2];
-    int nValues;
-    int history1[25];
-    int history2[25];
-    int maxVal[2];
-    int minVal[2];
-    int quarterTurns;
-    boolean canBeTriggered[2];
-    unsigned long triggerTime[2];
-    void checkThreshold();
+	public:
+		StepperControl();
+		float maxRPS;
+		boolean stepen;
+		boolean ms1;
+		boolean ms2;
+		boolean pfd;
+                boolean stepDir;
+                long targetPos;
+		int completedTurns;
+		void setParameters(void);
+                void setDirection(bool forward);
+		void updatePosition();
+		void setDistance(int nturns);
+                void getCompletedTurns(long currentCompletedSteps);
+                float getMaxSPS(void);
+	private:
+		int _nUSteps; 	// number of microsteps/step
+		int _maxSPS;	// max microsteps/second
+  	
 };
+    
+//class Photocells
+//{
+//  public:
+//    int values[2];
+//    int thresh[2];
+//    unsigned int counter;
+//    
+//    Photocells(int pin1, int pin2);
+//    
+//    int update(boolean dir, long time);
+//    
+//  private:
+//    int pins[2];
+//    int nValues;
+//    int history1[25];
+//    int history2[25];
+//    int maxVal[2];
+//    int minVal[2];
+//    int quarterTurns;
+//    boolean canBeTriggered[2];
+//    unsigned long triggerTime[2];
+//    void checkThreshold();
+//};
 
 #endif
 

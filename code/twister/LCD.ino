@@ -87,7 +87,7 @@ void resumeDialog() { // allow user to cancel restart
 
   while (remainingSeconds > 0) {
     while (millis() - theTime < 1000) {
-      inputs.check(twister.isTurning, verPCB);
+      inputs.check(twister.isTurning);
       if (inputs.buttonState == LOW) {
         remainingSeconds = 0;  
         resume = false;

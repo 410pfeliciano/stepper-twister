@@ -17,8 +17,7 @@
 
 // ------------------------------ //
 //    SOFTWARE VERSION NUMBER:
-int ver[2] = {
-  3, 1};
+int ver[2] = {3, 1};
 // ------------------------------ //
 //    PCB VERSION NUMBER:
 int verPCB = 1; 
@@ -35,8 +34,8 @@ int verPCB = 1;
  
  */
  
-boolean debugMode = true;
-boolean printState = false;
+boolean debugMode = false;
+boolean printState = true;
 
 /*   SAVE STATE?
 
@@ -53,24 +52,30 @@ boolean saveState = false;
 // BEGIN ACTUAL CODE:
 
 // Includes
-#include <Servo.h>
+#include <AccelStepper.h>
 #include <LiquidCrystal.h>
 #include <EEPROM.h>
 #include "TwisterClasses.h"
 
 // Initialize servo and LCD
-Servo myservo;
-const int servoPin = 9;
 LiquidCrystal lcd(12,11,5,4,3,2);
+
+// Initialize Stepper object
+// 1 = Use chopper driver
+// A2 (P38) = step command
+// A1 (P37) = direction command 
+AccelStepper stepper(1, A2, A1);
+StepperControl stepperCont;
 
 // Initialize twister classes
 
-//Board 1.1
+// Buzzer and dials
 Buzzer buzzer(6); // Board 1.1 = 6, Board 1.0 = 7
-Inputs inputs(7,0,1); // Board 1.1 = 7, Board 1.0 = 6
+Inputs inputs(7,4,5); // Board 1.1 = 7, Board 1.0 = 6
 
+// State tracker
 StateTracker twister;
-Photocells photocells(2, 3);
+//Photocells photocells(2, 3);
 
 // EEPROM variables
 int remainingTurns;
@@ -79,67 +84,112 @@ int turnDirection;
 void setup()
 {
 
+  // Set default stepper driver options
+  stepperCont.setParameters();
+  stepper.setMaxSpeed(stepperCont.getMaxSPS());
+  stepper.setAcceleration(stepperCont.getMaxSPS()/4);
+  
   // start up servo and LCD screen
-  myservo.attach(servoPin);
   lcd.begin(16,2);
 
   if (debugMode || printState) {
     Serial.begin(9600);
   }
-
-  // Read from EEPROM to determine if an error occurred during the last twist:
-  if (saveState) {
-    remainingTurns = EEPROM.read(0);
-    turnDirection = EEPROM.read(1);
-  }
-
-  //if (remainingTurns == 0 || remainingTurns == 255) {
-    startupScreen(ver[0],ver[1]);  // Display the welcome message
-
-  //} // NOT CURRENTLY IMPLEMENTED:
-  //       if Arduino loses power or is reset while turning, 
-  //       the program will read stored values from EEPROM
-  //       and keep turning where it left off.
   
-  //else { // restart turning
-  //  resumeDialog();  //Display the interactive dialog
-  //}
+    startupScreen(ver[0],ver[1]);  // Display the welcome message
+    
+    
 
+//  // Read from EEPROM to determine if an error occurred during the last twist:
+//  if (saveState) {
+//    remainingTurns = EEPROM.read(0);
+//    turnDirection = EEPROM.read(1);
+//  }
 }
 
 void loop()
 {
-  inputs.check(twister.isTurning, verPCB);
+  // Main information update function
+  inputs.check(twister.isTurning);
+  
+  // If we are actually turning the motor
+  if (twister.isTurning) { 
 
-  if (twister.isTurning) { // only update photocells if twister is spinning
-    int turns = photocells.update(twister.isTurningFWD,millis());
+	// Are we there yet?
+	if (stepper.distanceToGo() == 0) {
+            if (twister.isTurningFWD && !twister.finished) {
+              
+                  
+                // Set steppar target distance
+                stepperCont.setDistance(inputs.fwdTurns);
+    		stepper.moveTo(stepperCont.targetPos);
+                twister.isTurningFWD = false;
+                twister.finished = false;
+            }
+            else if (!twister.isTurningFWD && !twister.finished) {
+                
+              // Indicate turn around
+//                buzzer.low();
+//                delay(500);
+                  
+                stepperCont.setDistance(inputs.fwdTurns - inputs.revTurns);
+                stepper.moveTo(stepperCont.targetPos);
+                twister.isTurningFWD = true;
+                twister.finished = true;
+            }
+            else
+            {
+              
+              // Indicate that we are finished
+//               buzzer.low();
+//               delay(100);
+//               buzzer.high();
+//               delay(100);
+//                buzzer.low();
+//               delay(100);
+//               buzzer.high();
+//               delay(100);
 
-    if (turns) {
-      twister.totalTurns += turns;
-      twister.isUpdated = true; // necessary to update LCD
+               
+               allDone();
+               twister.isTurningFWD = true;
+               twister.isTurning = false;
+               twister.finished = false;
+               twister.isUpdated = true;
+               stepper.setCurrentPosition(0);
+               delay(2000);
+            }
+	}
+		
+	stepper.run();
 
-      if (printState) {
-        printVariables();
-      }
-    }
   }
+
+  
+      stepperCont.getCompletedTurns(stepper.currentPosition());
+	
+      if (twister.totalTurns != stepperCont.completedTurns) {
+  	
+        twister.totalTurns = stepperCont.completedTurns;
+        twister.isUpdated = true; // necessary to update LCD
+      }
 
   showTurns(); // update LCD screen
 
   if (inputs.buttonState == LOW) { // check for button press
     twister.respondToButton();
+    Serial.print("Button pressed\n");
+    printVariables();
     delay(250);
   }
 
-  updateServo();
   
-  if (saveState) {
-    updateEEPROM();
-  }
+  //updateServo();
+  
+//  if (saveState) {
+//    updateEEPROM();
+//  }
 
-  if (debugMode) {
-    printPhotocellInfo();
-  }
 
 }
 
