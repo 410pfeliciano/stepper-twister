@@ -15,20 +15,6 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-//void printPhotocellInfo() {
-//
-//  for (int p = 0; p < 2; p++) {
-//
-//    Serial.print("Photocell ");
-//    Serial.print(p);
-//    Serial.print(" ");
-//    Serial.print(photocells.values[p]);
-//    Serial.print(" ");
-//    Serial.println(photocells.thresh[p]);
-//
-//  }
-//
-//}
 
 void printVariables() {
 
@@ -50,9 +36,6 @@ void printVariables() {
   Serial.print("max speed: ");
   Serial.print(stepper.speed()); 
   Serial.print(" \n");
-  
-//  Serial.print(photocells.counter); 
-//  Serial.print(" ");
-
+ 
 }
 

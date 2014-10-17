@@ -18,7 +18,7 @@
 
 void startupScreen(int a, int b) {
 
-  lcd.print(" Tetrode Twister ");
+  lcd.print("Tetrode Stepper");
 
   lcd.setCursor(0,1);
 
@@ -27,7 +27,7 @@ void startupScreen(int a, int b) {
   lcd.print(".");
   lcd.print(b);
 
-  delay(3000);     
+  delay(2000);     
 
 }
 
@@ -49,13 +49,128 @@ void showTurns() {
   }
 }
 
+void showTurningDialog() {
+
+  if (inputs.isUpdated || twister.isUpdated) {
+
+    lcd.clear();
+    lcd.print("FWD  REV  COUNT");
+    lcd.setCursor(0,1);
+
+    printTurns(inputs.fwdTurns);
+    printTurns(inputs.revTurns);
+    lcd.print("...");
+
+    inputs.isUpdated = false;
+    twister.isUpdated = false;
+  }
+}
+
 void allDone() {
+int r = random(0,20);
+lcd.clear();
 
-  lcd.clear();
-  lcd.print("  Fire up that   ");
-  lcd.setCursor(0,1);
-  lcd.print("   heat gun!     ");
-
+switch(r) {
+  case 0: 
+      lcd.print("It is");
+      lcd.setCursor(0,1);
+      lcd.print("certain.");
+      break;
+  case 1:  
+      lcd.print("It is");
+      lcd.setCursor(0,1);
+      lcd.print("decidedly so.");
+      break;
+  case 2:  
+      lcd.print("Without");
+      lcd.setCursor(0,1);
+      lcd.print("a doubt.");
+      break;
+  case 3:  
+      lcd.print("Yes,");
+      lcd.setCursor(0,1);
+      lcd.print("definitely.");
+      break;
+  case 4:  
+      lcd.print("You may");
+      lcd.setCursor(0,1);
+      lcd.print("rely on it.");
+      break;
+  case 5:  
+      lcd.print("As I see it,");
+      lcd.setCursor(0,1);
+      lcd.print("yes.");
+      break;
+  case 6:  
+      lcd.print("Most");
+      lcd.setCursor(0,1);
+      lcd.print("likely."); 
+      break;
+  case 7:  
+      lcd.print("Outlook");
+      lcd.setCursor(0,1);
+      lcd.print("good.");
+      break;
+  case 8:  
+      lcd.print("Yes.");
+      lcd.setCursor(0,1);
+      lcd.print("");
+      break;
+  case 9:  
+      lcd.print("Signs point");
+      lcd.setCursor(0,1);
+      lcd.print("to yes.");
+      break;
+  case 10:  
+      lcd.print("Reply hazy,");
+      lcd.setCursor(0,1);
+      lcd.print("try again.");
+      break;
+  case 11:  
+      lcd.print("Ask again");
+      lcd.setCursor(0,1);
+      lcd.print("later.");
+      break;
+  case 12:  
+      lcd.print("Better not");
+      lcd.setCursor(0,1);
+      lcd.print("tell you now.");
+      break;
+  case 13:  
+      lcd.print("Cannot predict");
+      lcd.setCursor(0,1);
+      lcd.print("now.");
+      break;
+  case 14:  
+      lcd.print("Concentrate and");
+      lcd.setCursor(0,1);
+      lcd.print("ask me again.");
+      break;
+  case 15:  
+      lcd.print("Don't");
+      lcd.setCursor(0,1);
+      lcd.print("count on it.");
+      break;
+  case 16:  
+      lcd.print("My reply is");
+      lcd.setCursor(0,1);
+      lcd.print("no.");
+      break;
+  case 17:  
+      lcd.print("My sources say");
+      lcd.setCursor(0,1);
+      lcd.print("no.");
+      break;
+  case 18:  
+      lcd.print("Outlook not so");
+      lcd.setCursor(0,1);
+      lcd.print("good.");
+      break;
+  default: 
+      lcd.print("Very");
+      lcd.setCursor(0,1);
+      lcd.print("doubtful.");
+}
 }
 
 void printTurns(int nTurns) {

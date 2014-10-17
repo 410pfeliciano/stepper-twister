@@ -24,14 +24,36 @@
  #include <WProgram.h>
 #endif
 
-// Stepper pins
-#define SPR				48	 // steps per rotation for ST-PM35
-#define DIR				37
-#define STEP			38
-#define PFD				39
-#define MS1				10
-#define MS2				9
-#define STEPEN			8
+// Stepper pins and constants
+#define STEPMODE		1 		// Stepper mode 1 = use driver
+#define SPR				48	 	// steps per rotation for ST-PM35
+#define DIR				15		// A1, step direction
+#define STEP			16		// A2, step command
+#define PFD				17 		// A3, percent fast decay
+#define MS1				10 		// microstep config 1
+#define MS2				9 		// microstep config 2
+#define STEPEN			8		// Step enable
+
+// Input pins
+#define STARTSTOP       7		// stop/start button
+#define KNOB1			4 		// knob 1 analog input
+#define KNOB2			5 		// knob 2 analog input
+
+// Buzzer
+#define BUZZER			6 		// Buzzer pin
+
+// LCD
+#define LCDRS			12	 	// register select
+#define LCDEN			11		// enable
+#define LCDD4			5		// data pin
+#define LCDD5			4		// data pin
+#define LCDD6			3		// data pin
+#define LCDD7			2		// data pin
+
+#define PFD				17 		// A3, percent fast decay
+#define MS1				10 		// microstep config 1
+#define MS2				9 		// microstep config 2
+#define STEPEN			8		// Step enable
 
 
 class Buzzer
@@ -40,8 +62,8 @@ class Buzzer
     Buzzer(int pin);
     void high();
     void low();
-   private:
-     int _pin;
+  private:
+	int _pin;
 };
 
 class Inputs
