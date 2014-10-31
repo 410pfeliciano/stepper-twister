@@ -33,3 +33,7 @@ McMaster-Carr,Quantity,Description,Notes
 ,,,
 Pololu,Quantity,Description,Notes
 1079,1,3-mm shaft hub,2/pack
+,,,
+Ponoko,Quantity,Description,Notes
+cad/clip-holder.stl,1,3-d printed clip holder,"Material = fine, durable plastic, design: http://www.ponoko.com/design-your-own/products/clip-holder-11927"
+cad/motor-arm.stl,1,3-d printed stepper motor arm,"Material = fine, durable plastic, design: http://www.ponoko.com/design-your-own/products/clip-holder-11927"
